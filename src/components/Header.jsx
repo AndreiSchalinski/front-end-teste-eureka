@@ -1,5 +1,7 @@
 import "../styles/indexPages/indexPage.css";
 import Button from "../components/Button";
+import ButtonAccess from "../components/ButtonAccess";
+import { useNavigate } from "react-router-dom";
 
 export default function Header({
   showButtonLogin,
@@ -7,6 +9,12 @@ export default function Header({
   showButtonLogout,
   showButtonUsuarios,
 }) {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/index");
+  };
   return (
     <header>
       <h1>
@@ -26,11 +34,11 @@ export default function Header({
           showButton={showButtonUsuarios}
           path={"/admin/usuario/lista"}
         />
-        <Button
+        <ButtonAccess
           label={"LOGOUT"}
-          path={"/index"}
-          showButton={showButtonLogout}
           className={"buttons-actions button"}
+          showButton={showButtonLogout}
+          onClick={logout}
         />
       </div>
     </header>

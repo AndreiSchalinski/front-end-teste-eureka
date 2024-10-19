@@ -2,11 +2,11 @@ import "../styles/indexPages/consultaPage.css";
 import Input from "../components/Input";
 import Header from "../components/Header";
 import Button from "../components/Button";
-import ButtonLogin from "../components/ButtonLogin";
+import ButtonAccess from "../components/ButtonAccess";
 import { useState } from "react";
 
 export default function LoginPage() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mensagem, setMensagem] = useState("");
 
@@ -14,12 +14,12 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/auth/login", {
+      const response = await fetch("http://localhost:8080/api/auth/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (response.ok) {
@@ -29,10 +29,9 @@ export default function LoginPage() {
         // Redireciona para uma página protegida
         window.location.href = "/admin/panel";
       } else {
-        setMensagem("Falha no login");
+        setMensagem("Usuário ou senha incorretos");
       }
     } catch (error) {
-      setMensagem("Erro na autenticação:");
       console.error("Erro na autenticação:", error);
     }
   };
@@ -48,10 +47,9 @@ export default function LoginPage() {
       </section>
       <section className="container-form-login">
         <form onSubmit={handleLogin}>
-          <p>{mensagem}</p>
-          <Input type={"text"} label={"Usuário"} onChange={setUsername} />
+          <Input type={"text"} label={"Usuário"} onChange={setEmail} />
           <Input type={"password"} label={"Senha"} onChange={setPassword} />
-          <ButtonLogin
+          <ButtonAccess
             label={"Entrar"}
             className={"button-success buttons-navigator buttons-actions"}
             onClick={handleLogin}
@@ -61,6 +59,7 @@ export default function LoginPage() {
             className={"buttons-navigator buttons-actions"}
             path={"/index"}
           />
+          <p className="login-mensagem">{mensagem}</p>
         </form>
       </section>
     </div>
