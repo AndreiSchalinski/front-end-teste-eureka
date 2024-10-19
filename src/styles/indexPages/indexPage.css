@@ -163,3 +163,7 @@ section {
   font-family: "Karantina", cursive;
   letter-spacing: 0.05em;
 }
+
+.login-mensagem-disable {
+  display: none;
+}

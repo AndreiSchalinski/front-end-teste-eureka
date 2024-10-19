@@ -32,6 +32,7 @@ export default function LoginPage() {
         setMensagem("Usuário ou senha incorretos");
       }
     } catch (error) {
+      setMensagem("Erro interno, contatar admin de sistema!");
       console.error("Erro na autenticação:", error);
     }
   };
@@ -59,7 +60,13 @@ export default function LoginPage() {
             className={"buttons-navigator buttons-actions"}
             path={"/index"}
           />
-          <p className="login-mensagem">{mensagem}</p>
+          <p
+            className={`login-mensagem ${
+              mensagem !== "" ? "" : "login-mensagem-disable"
+            }`}
+          >
+            {mensagem}
+          </p>
         </form>
       </section>
     </div>
