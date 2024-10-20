@@ -38,8 +38,9 @@ export default function LoginPage() {
 
       if (response.status === 200) {
         const data = response.data;
+
         // Armazena o token JWT no localStorage
-        localStorage.setItem("token", data.token);
+        localStorage.setItem("token", JSON.stringify(data));
         // Redireciona para uma página protegida
         window.location.href = "/admin/panel";
       } else {
