@@ -1,13 +1,22 @@
 import "../styles/indexPages/indexPage.css";
 
-export default function Input({ type, label, listOptions, onChange }) {
+export default function Input({
+  name,
+  value,
+  type,
+  label,
+  listOptions,
+  onChange,
+}) {
   if (type === "text") {
     return (
       <input
         className="input"
         type="text"
+        name={name}
+        value={value}
         placeholder={label}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange(e)}
       />
     );
   }
@@ -16,8 +25,10 @@ export default function Input({ type, label, listOptions, onChange }) {
       <input
         className="input"
         type="password"
+        name={name}
+        value={value}
         placeholder={label}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange(e)}
       />
     );
   }
@@ -25,9 +36,11 @@ export default function Input({ type, label, listOptions, onChange }) {
     return (
       <textarea
         className="input"
+        name={name}
+        value={value}
         placeholder={label}
         rows={7}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange(e)}
       ></textarea>
     );
   }

@@ -4,26 +4,40 @@ import Header from "../components/Header";
 import Button from "../components/Button";
 import ButtonAccess from "../components/ButtonAccess";
 import { useState } from "react";
+import axios from "axios";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [usuario, setUsuario] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUsuario((prevUsuario) => ({
+      ...prevUsuario,
+      [name]: value,
+    }));
+  };
+
   const [mensagem, setMensagem] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/signin",
+        usuario,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-        body: JSON.stringify({ email, password }),
-      });
+      );
 
-      if (response.ok) {
-        const data = await response.json();
+      if (response.status === 200) {
+        const data = response.data;
         // Armazena o token JWT no localStorage
         localStorage.setItem("token", data.token);
         // Redireciona para uma página protegida
@@ -32,7 +46,11 @@ export default function LoginPage() {
         setMensagem("Usuário ou senha incorretos");
       }
     } catch (error) {
-      setMensagem("Erro interno, contatar admin de sistema!");
+      if (error.response && error.response.status === 401) {
+        setMensagem("Usuário ou senha incorretos");
+      } else {
+        setMensagem("Erro interno, contatar admin de sistema!");
+      }
       console.error("Erro na autenticação:", error);
     }
   };
@@ -48,8 +66,20 @@ export default function LoginPage() {
       </section>
       <section className="container-form-login">
         <form onSubmit={handleLogin}>
-          <Input type={"text"} label={"Usuário"} onChange={setEmail} />
-          <Input type={"password"} label={"Senha"} onChange={setPassword} />
+          <Input
+            type={"text"}
+            label={"Usuário"}
+            name={"email"}
+            value={usuario.email}
+            onChange={handleInputChange}
+          />
+          <Input
+            type={"password"}
+            label={"Senha"}
+            name={"password"}
+            value={usuario.password}
+            onChange={handleInputChange}
+          />
           <ButtonAccess
             label={"Entrar"}
             className={"button-success buttons-navigator buttons-actions"}
