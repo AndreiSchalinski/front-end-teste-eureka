@@ -66,6 +66,9 @@ section {
 .button-success {
   background-color: #2ba04a;
   color: white;
+  font-size: 35px;
+  margin: 2px;
+  padding: 20px 60px;
 }
 
 .buttons-actions:hover {
