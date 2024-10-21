@@ -66,6 +66,9 @@ section {
 .button-success {
   background-color: #2ba04a;
   color: white;
+  font-size: 35px;
+  margin: 2px;
+  padding: 20px 60px;
 }
 
 .buttons-actions:hover {
@@ -162,4 +165,8 @@ section {
   font-size: 25px;
   font-family: "Karantina", cursive;
   letter-spacing: 0.05em;
+}
+
+.login-mensagem-disable {
+  display: none;
 }

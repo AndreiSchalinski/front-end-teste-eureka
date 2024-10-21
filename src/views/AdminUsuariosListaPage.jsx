@@ -1,7 +1,22 @@
 import Header from "../components/Header";
 import Button from "../components/Button";
+import { useEffect } from "react";
+import { getListUsuarios } from "../services/usuario.service";
 
 export default function AdminUsuariosListaPage() {
+  useEffect(() => {
+    const fetchUsuarios = async () => {
+      try {
+        const list = await getListUsuarios();
+        console.log(list);
+      } catch (error) {
+        console.error("Erro ao carregar a lista de usuários:", error);
+      }
+    };
+
+    fetchUsuarios();
+  }, []);
+
   const sections = (
     <div>
       <section>
