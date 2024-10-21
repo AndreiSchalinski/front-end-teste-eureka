@@ -11,12 +11,14 @@ export default function AdminUsuarioFormPage() {
   ));
 
   const [usuario, setUsuario] = useState({
-    id: null,
     nome: "",
     email: "",
     cargo: "",
     telefone: "",
+    username: "",
     password: "",
+    role: 1,
+    roles: [],
   });
 
   const handleInputChange = (e) => {
@@ -78,6 +80,13 @@ export default function AdminUsuarioFormPage() {
                 label={"Telefone"}
                 name={"telefone"}
                 value={usuario.telefone}
+                onChange={handleInputChange}
+              />
+              <Input
+                type={"text"}
+                label={"Usuário"}
+                name={"username"}
+                value={usuario.username}
                 onChange={handleInputChange}
               />
               <Input

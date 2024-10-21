@@ -8,7 +8,7 @@ import axios from "axios";
 
 export default function LoginPage() {
   const [usuario, setUsuario] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -70,8 +70,8 @@ export default function LoginPage() {
           <Input
             type={"text"}
             label={"Usuário"}
-            name={"email"}
-            value={usuario.email}
+            name={"username"}
+            value={usuario.username}
             onChange={handleInputChange}
           />
           <Input
